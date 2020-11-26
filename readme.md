@@ -22,6 +22,8 @@ COUNT(DISTINCT(books.author)) as count_author, COUNT(user_books.book_id) as coun
 
 **GET:/api/auth**
 
+В App\Http\Middleware\CheckApiAuthorization проверяются api методы на соответствии токена
+
 Метод получения курса валют
 
 **GET:/api/v1?method=rates**
