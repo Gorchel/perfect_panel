@@ -92,7 +92,7 @@ $app->singleton(
 */
 
 $app->configure('self_routing');
-$app->configure('commissions');
+$app->configure('converting');
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',

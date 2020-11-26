@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes\Commissions;
+namespace App\Classes\Converting;
 
 /**
  * Class SelfCommission
@@ -12,6 +12,6 @@ class SelfCommission {
      */
     public function handle(float $value)
     {
-        return round($value + ($value * floatval(config('commissions.default'))), 2);
+        return round($value + ($value * floatval(config('converting.commission'))), 2);
     }
 }

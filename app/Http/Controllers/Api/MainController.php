@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Classes\Router\RouterManager;
 use App\Classes\Integrations\BTC\BTCClient;
-use App\Classes\Commissions\SelfCommission;
+use App\Classes\Converting\SelfCommission;
+use App\Classes\Converting\ConvertManager;
 
 /**
  * Class MainController
@@ -82,6 +83,60 @@ class MainController extends Controller
      */
     private function convert(Request $request)
     {
+        //Краткая валидация, можно использовать пакет Validation
+        $validationResponse = $this->_validate($request);
 
+        if ($validationResponse['status'] == false) {
+            return response()->json([
+                "status" =>  "error",
+                "code" => 400,
+                "message" => $validationResponse['message'],
+            ]);
+        }
+
+        $convertManager = new ConvertManager;
+        $result = $convertManager->handle($request->get('currency_from'), $request->get('currency_to'), $request->get('value'));
+
+        if ($result['status'] == false) {
+            return response()->json([
+                "status" =>  "error",
+                "code" => 400,
+                "message" => $result['message'],
+            ]);
+        }
+
+        $result['data']["currency_from"] = $request->get('currency_from');
+        $result['data']["currency_to"] = $request->get('currency_to');
+        $result['data']["value"] = $request->get('value');
+
+        return response()->json([
+            "status" =>  "success",
+            "code" => 200,
+            "data" => $result['data'],
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    private function _validate(Request $request)
+    {
+        if (!$request->has('currency_from'))
+        {
+            return ['status' => false, 'message' => 'Required parameter currency_from'];
+        }
+
+        if (!$request->has('currency_to'))
+        {
+            return ['status' => false, 'message' => 'Required parameter currency_to'];
+        }
+
+        if (!$request->has('value'))
+        {
+            return ['status' => false, 'message' => 'Required parameter value'];
+        }
+
+        return ['status' => true];
     }
 }
