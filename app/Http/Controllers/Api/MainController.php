@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Classes\Authorization\AuthorizationTokenGetter;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Classes\Router\RouterManager;
@@ -15,6 +16,21 @@ use App\Classes\Converting\ConvertManager;
  */
 class MainController extends Controller
 {
+    /**
+     * Get fixed auth token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function auth()
+    {
+        $authorizationClass = new AuthorizationTokenGetter;
+        return response()->json([
+            "status" =>  "success",
+            "code" => 200,
+            "data" => $authorizationClass->getFixedAuthToken(),
+        ]);
+    }
+
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse

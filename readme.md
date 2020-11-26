@@ -17,12 +17,19 @@ COUNT(DISTINCT(books.author)) as count_author, COUNT(user_books.book_id) as coun
 Основные классы для конвертации и получения курсов валют **\App\Classes**
 
 Основные конфиги по конвертации, комиссиям и приватным роутингам **configs**
+
+Получение фиксированного токена
+
+**GET://api/auth**
+
 Метод получения курса валют
 
 **GET:/api/v1?method=rates**
 
 Params
 **_currency_** - Выводи курс по конкретной валюте
+
+Метод конвертации валюты
 
 **POST:api/v1?method=convert**
 
