@@ -20,7 +20,7 @@ COUNT(DISTINCT(books.author)) as count_author, COUNT(user_books.book_id) as coun
 
 Получение фиксированного токена
 
-**GET://api/auth**
+**GET:/api/auth**
 
 Метод получения курса валют
 
@@ -31,7 +31,7 @@ Params
 
 Метод конвертации валюты
 
-**POST:api/v1?method=convert**
+**POST:/api/v1?method=convert**
 
 Params
 **_currency_from (обязательное)*_** - Валюта которую меняют
