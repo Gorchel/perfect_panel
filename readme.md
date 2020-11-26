@@ -19,7 +19,14 @@ COUNT(DISTINCT(books.author)) as count_author, COUNT(user_books.book_id) as coun
 Основные конфиги по конвертации, комиссиям и приватным роутингам **configs**
 Метод получения курса валют
 
-**/api/v1?method=rates**
+**GET:/api/v1?method=rates**
 
 Params
 **_currency_** - Выводи курс по конкретной валюте
+
+**POST:api/v1?method=convert**
+
+Params
+**_currency_from (обязательное)*_** - Валюта которую меняют
+**_currency_to (обязательное)*_** - Валюта на которую меняют
+**_value (обязательное)_** - Значение обмена
